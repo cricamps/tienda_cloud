@@ -1,0 +1,134 @@
+<!-- ====== INICIANDO ====== -->
+<div *ngIf="iniciando" class="login-redirect">
+  <div class="spinner"></div>
+  <p>Iniciando sesión con Azure B2C...</p>
+</div>
+
+<ng-container *ngIf="!iniciando">
+
+  <!-- ====== CON SESIÓN ====== -->
+  <ng-container *ngIf="logueado">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="navbar-brand">🛒 Tienda Don Pepe</div>
+      <div class="navbar-user">
+        <span class="user-name">👤 {{ nombreUsuario }}</span>
+        <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+      </div>
+    </nav>
+
+    <!-- ERROR -->
+    <div *ngIf="error" class="alert-error">
+      ⚠️ {{ error }}
+      <button (click)="error = ''">✕</button>
+    </div>
+
+    <!-- LOADING BOLETA -->
+    <div *ngIf="cargandoBoleta" class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Generando boleta...</p>
+    </div>
+
+    <!-- ====== VISTA: TIENDA ====== -->
+    <div *ngIf="vista === 'tienda'" class="layout">
+
+      <div class="productos-grid-col">
+        <h2 class="section-title">Productos disponibles</h2>
+
+        <div *ngIf="cargandoProductos" class="cargando-productos">
+          <div class="spinner small"></div>
+          <span>Cargando productos...</span>
+        </div>
+
+        <div class="productos-grid" *ngIf="!cargandoProductos">
+          <div
+            class="card-producto"
+            *ngFor="let p of productos"
+            [class.en-carrito]="getCantidadEnCarrito(p.id) > 0"
+          >
+            <div class="producto-imagen">{{ p.imagen }}</div>
+            <div class="producto-info">
+              <h3>{{ p.nombre }}</h3>
+              <p class="descripcion">{{ p.descripcion }}</p>
+              <span class="categoria">{{ p.categoria }}</span>
+              <p class="precio">$ {{ p.precio | number:'1.0-0' }}</p>
+            </div>
+            <div class="producto-acciones">
+              <button class="btn-quitar" (click)="quitarDelCarrito(p.id)" [disabled]="getCantidadEnCarrito(p.id) === 0">−</button>
+              <span class="cantidad-badge">{{ getCantidadEnCarrito(p.id) }}</span>
+              <button class="btn-agregar" (click)="agregarAlCarrito(p)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carrito-col">
+        <h2 class="section-title">🧺 Carrito ({{ totalItems }} ítems)</h2>
+        <div *ngIf="carrito.length === 0" class="carrito-vacio">
+          <p>Aún no has agregado productos.</p>
+        </div>
+        <div *ngIf="carrito.length > 0">
+          <div class="carrito-item" *ngFor="let item of carrito">
+            <span class="item-imagen">{{ item.imagen }}</span>
+            <div class="item-detalle">
+              <span class="item-nombre">{{ item.nombre }}</span>
+              <span class="item-cantidad">x{{ item.cantidad }}</span>
+            </div>
+            <span class="item-precio">$ {{ (item.precio * item.cantidad) | number:'1.0-0' }}</span>
+          </div>
+          <div class="carrito-total">
+            <span>Total estimado</span>
+            <strong>$ {{ totalCarrito | number:'1.0-0' }}</strong>
+          </div>
+          <button class="btn-generar" (click)="generarBoleta()" [disabled]="cargandoBoleta">
+            📄 Generar Boleta
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== VISTA: BOLETA ====== -->
+    <div *ngIf="vista === 'boleta' && boleta" class="boleta-container">
+      <div class="boleta">
+        <div class="boleta-header">
+          <h2>🧾 Boleta de Venta</h2>
+          <p class="boleta-numero">N° {{ boleta.numeroBoleta }}</p>
+          <p class="boleta-fecha">{{ boleta.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p class="boleta-cliente">Cliente: <strong>{{ boleta.cliente }}</strong></p>
+        </div>
+        <table class="boleta-tabla">
+          <thead>
+            <tr><th>Producto</th><th>Cant.</th><th>P. Unit.</th><th>Total</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of boleta.items">
+              <td>{{ item.nombre }}</td>
+              <td class="center">{{ item.cantidad }}</td>
+              <td class="right">$ {{ item.precio | number:'1.0-0' }}</td>
+              <td class="right">$ {{ (item.precio * item.cantidad) | number:'1.0-0' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="boleta-resumen">
+          <div class="resumen-row"><span>Subtotal</span><span>$ {{ boleta.subtotal | number:'1.0-0' }}</span></div>
+          <div class="resumen-row"><span>IVA (19%)</span><span>$ {{ boleta.iva | number:'1.0-0' }}</span></div>
+          <div class="resumen-row total"><strong>TOTAL</strong><strong>$ {{ boleta.total | number:'1.0-0' }}</strong></div>
+        </div>
+        <div class="boleta-footer">
+          <p>¡Gracias por su compra!</p>
+          <button class="btn-nueva-compra" (click)="nuevaCompra()">🛒 Nueva Compra</button>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- ====== SIN SESIÓN (redirigiendo) ====== -->
+  <div *ngIf="!logueado" class="login-redirect">
+    <div class="spinner"></div>
+    <p>Redirigiendo a Azure B2C...</p>
+    <div *ngIf="error" class="login-error">{{ error }}</div>
+  </div>
+
+</ng-container>

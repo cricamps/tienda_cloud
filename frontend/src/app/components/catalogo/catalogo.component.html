@@ -1,0 +1,60 @@
+<app-navbar />
+
+<!-- TOAST -->
+<div class="toast" *ngIf="toast">{{ toast }}</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Nuestros Productos</h1>
+    <p>Selecciona tus productos y agrégalos al carrito</p>
+  </div>
+
+  <div class="filtros">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" placeholder="Buscar productos..." [(ngModel)]="busqueda" (input)="filtrar()" />
+    </div>
+    <div class="categorias">
+      <button *ngFor="let cat of categorias" [class.active]="categoriaSeleccionada === cat"
+        (click)="categoriaSeleccionada = cat; filtrar()" class="btn-cat">{{ cat }}</button>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert-error">⚠️ {{ error }}</div>
+
+  <div *ngIf="cargando" class="loading-grid">
+    <div class="skeleton" *ngFor="let i of [1,2,3,4,5,6]"></div>
+  </div>
+
+  <div class="productos-grid" *ngIf="!cargando">
+    <a class="card-producto" *ngFor="let p of productosFiltrados"
+      [routerLink]="['/producto', p.id]"
+      [class.en-carrito]="tiendaService.getCantidadEnCarrito(p.id) > 0">
+
+      <div class="card-imagen" [ngClass]="'icono-' + p.imagen">
+        <div class="icono-producto">{{ getIcono(p.imagen) }}</div>
+      </div>
+
+      <div class="card-body">
+        <span class="categoria-tag">{{ p.categoria }}</span>
+        <h3>{{ p.nombre }}</h3>
+        <p class="descripcion">{{ p.descripcion }}</p>
+        <div class="card-footer">
+          <span class="precio">$ {{ p.precio | number:'1.0-0' }}</span>
+          <div *ngIf="tiendaService.getCantidadEnCarrito(p.id) === 0">
+            <button class="btn-agregar" (click)="agregarAlCarrito(p, $event)">+ Agregar</button>
+          </div>
+          <div class="qty-control" *ngIf="tiendaService.getCantidadEnCarrito(p.id) > 0">
+            <button (click)="quitarDelCarrito(p.id, $event)">−</button>
+            <span>{{ tiendaService.getCantidadEnCarrito(p.id) }}</span>
+            <button (click)="agregarAlCarrito(p, $event)">+</button>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <div *ngIf="productosFiltrados.length === 0" class="sin-resultados">
+      <p>🔍 No se encontraron productos para "{{ busqueda }}"</p>
+    </div>
+  </div>
+</div>

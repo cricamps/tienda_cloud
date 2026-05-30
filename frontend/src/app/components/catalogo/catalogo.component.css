@@ -1,0 +1,100 @@
+:host { display: block; min-height: 100vh; background: #f8f9fa; }
+
+.toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  background: #1b5e20; color: white; padding: 0.75rem 1.5rem;
+  border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+  z-index: 500; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  animation: slideUp .3s ease;
+}
+@keyframes slideUp { from { opacity:0; transform: translateX(-50%) translateY(20px); } }
+
+.page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+.page-header { margin-bottom: 2rem; }
+.page-header h1 { font-size: 1.8rem; font-weight: 800; color: #1b5e20; margin: 0 0 .25rem; }
+.page-header p { color: #666; margin: 0; }
+
+.filtros { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.search-box {
+  display: flex; align-items: center; gap: .5rem;
+  background: white; border: 1.5px solid #e0e0e0;
+  border-radius: 12px; padding: .5rem 1rem; flex: 1; min-width: 220px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.search-box input { border: none; outline: none; font-size: .95rem; width: 100%; }
+.categorias { display: flex; gap: .5rem; flex-wrap: wrap; }
+.btn-cat {
+  padding: .4rem 1rem; border-radius: 50px;
+  border: 1.5px solid #e0e0e0; background: white;
+  font-size: .85rem; cursor: pointer; transition: .2s; color: #555;
+}
+.btn-cat:hover { border-color: #1b5e20; color: #1b5e20; }
+.btn-cat.active { background: #1b5e20; color: white; border-color: #1b5e20; }
+
+.alert-error { background: #ffebee; color: #c62828; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
+
+.loading-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+.skeleton {
+  height: 320px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200%; border-radius: 16px;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer { 0%{background-position:200%} 100%{background-position:-200%} }
+
+.productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+
+.card-producto {
+  background: white; border-radius: 16px; border: 2px solid transparent;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  text-decoration: none; color: inherit;
+  overflow: hidden; transition: all .25s;
+  display: flex; flex-direction: column; cursor: pointer;
+}
+.card-producto:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); border-color: #a5d6a7; }
+.card-producto.en-carrito { border-color: #1b5e20; }
+
+/* Imagen con fondo de color */
+.card-imagen {
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+}
+.icono-granos   { background: linear-gradient(135deg, #fff8e1, #ffecb3); }
+.icono-aceite   { background: linear-gradient(135deg, #fff9c4, #f9a825); }
+.icono-azucar   { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.icono-leche    { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+.icono-pan      { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+.icono-huevos   { background: linear-gradient(135deg, #fffde7, #fff176); }
+.icono-fideos   { background: linear-gradient(135deg, #fbe9e7, #ffccbc); }
+.icono-conserva { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.icono-default  { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+
+.icono-producto { font-size: 4rem; line-height: 1; user-select: none; }
+
+.card-body { padding: 1rem 1.25rem 1.25rem; flex: 1; display: flex; flex-direction: column; }
+.categoria-tag {
+  display: inline-block; background: #e8f5e9; color: #2e7d32;
+  font-size: .7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; padding: .2rem .6rem; border-radius: 50px; margin-bottom: .5rem;
+}
+.card-body h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .3rem; color: #1a1a1a; }
+.descripcion { font-size: .82rem; color: #888; margin: 0; flex: 1; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+.precio { font-size: 1.1rem; font-weight: 800; color: #ff6f00; }
+
+.btn-agregar {
+  background: #1b5e20; color: white; border: none;
+  padding: .4rem .9rem; border-radius: 8px;
+  font-size: .85rem; font-weight: 600; cursor: pointer; transition: .2s;
+}
+.btn-agregar:hover { background: #2e7d32; }
+
+.qty-control { display: flex; align-items: center; gap: .5rem; background: #f1f8e9; border-radius: 8px; padding: .2rem .5rem; }
+.qty-control button {
+  background: #1b5e20; color: white; border: none;
+  width: 26px; height: 26px; border-radius: 6px; font-size: 1rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.qty-control span { font-weight: 700; font-size: .95rem; min-width: 20px; text-align: center; }
+
+.sin-resultados { grid-column: 1/-1; text-align: center; padding: 4rem; color: #aaa; font-size: 1.1rem; }

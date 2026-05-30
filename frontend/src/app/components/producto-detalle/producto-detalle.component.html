@@ -1,0 +1,58 @@
+<app-navbar />
+<div class="toast" *ngIf="toast">{{ toast }}</div>
+
+<div class="page">
+  <button class="btn-back" (click)="volver()">← Volver al catálogo</button>
+
+  <div *ngIf="cargando" class="loading"><div class="spinner"></div></div>
+
+  <div *ngIf="!cargando && !producto" class="no-encontrado">
+    <p>Producto no encontrado.</p>
+    <button (click)="volver()">Volver</button>
+  </div>
+
+  <div class="detalle" *ngIf="producto">
+    <div class="detalle-imagen">
+      <div class="emoji-grande icono-{{producto.imagen}}">
+        <span>{{ getIcono(producto.imagen) }}</span>
+      </div>
+      <div class="stock-badge" [class.agotado]="producto.stock === 0">
+        {{ producto.stock > 0 ? '✅ En stock (' + producto.stock + ' disponibles)' : '❌ Agotado' }}
+      </div>
+    </div>
+
+    <div class="detalle-info">
+      <span class="categoria-tag">{{ producto.categoria }}</span>
+      <h1>{{ producto.nombre }}</h1>
+      <p class="descripcion-corta">{{ producto.descripcion }}</p>
+      <p class="descripcion-larga" *ngIf="producto.detalle">{{ producto.detalle }}</p>
+
+      <div class="precio-grande">$ {{ producto.precio | number:'1.0-0' }}</div>
+      <p class="precio-sub">Precio unitario · IVA incluido</p>
+
+      <div class="acciones-detalle">
+        <div class="qty-box" *ngIf="cantidad > 0">
+          <button (click)="quitar()">−</button>
+          <span>{{ cantidad }}</span>
+          <button (click)="agregar()" [disabled]="cantidad >= producto.stock">+</button>
+        </div>
+
+        <button class="btn-carrito" (click)="agregar()"
+          *ngIf="cantidad === 0" [disabled]="producto.stock === 0">
+          🛒 Agregar al carrito
+        </button>
+
+        <button class="btn-ver-carrito" (click)="irAlCarrito()" *ngIf="cantidad > 0">
+          Ver carrito ({{ tiendaService.totalItems() }})
+        </button>
+      </div>
+
+      <div class="info-extra">
+        <div class="info-item">📦 Despacho disponible a domicilio</div>
+        <div class="info-item">🔄 Devolución en 7 días</div>
+        <div class="info-item">🔒 Pago 100% seguro</div>
+        <div class="info-item">✅ Producto verificado</div>
+      </div>
+    </div>
+  </div>
+</div>

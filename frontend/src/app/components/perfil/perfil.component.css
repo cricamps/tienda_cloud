@@ -1,0 +1,36 @@
+:host { display: block; min-height: 100vh; background: #f8f9fa; }
+.page { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #1b5e20; color: white; padding: .75rem 1.5rem; border-radius: 50px; font-weight: 600; z-index: 500; }
+.perfil-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+
+/* AVATAR */
+.avatar-card { background: white; border-radius: 20px; padding: 2rem; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,.07); height: fit-content; }
+.avatar { width: 90px; height: 90px; background: linear-gradient(135deg, #1b5e20, #4caf50); color: white; border-radius: 50%; font-size: 2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.avatar-card h2 { font-size: 1.1rem; font-weight: 700; margin: 0 0 .25rem; }
+.avatar-card p { color: #888; font-size: .85rem; margin: 0 0 1rem; }
+.avatar-badge { background: #e8f5e9; color: #2e7d32; font-size: .75rem; font-weight: 700; padding: .3rem .8rem; border-radius: 50px; display: inline-block; }
+
+/* INFO CARD */
+.info-card { background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+.card-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.card-title h2 { font-size: 1.2rem; font-weight: 800; margin: 0; color: #1a1a1a; }
+.btn-editar { background: #e8f5e9; color: #1b5e20; border: none; padding: .4rem .9rem; border-radius: 8px; font-size: .88rem; font-weight: 700; cursor: pointer; transition: .2s; }
+.btn-editar:hover { background: #c8e6c9; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: .4rem; }
+.form-group.full { grid-column: 1 / -1; }
+label { font-size: .82rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: .3px; }
+input {
+  padding: .65rem .9rem; border: 1.5px solid #e0e0e0;
+  border-radius: 10px; font-size: .95rem;
+  transition: .2s; outline: none; background: white;
+}
+input:focus { border-color: #1b5e20; box-shadow: 0 0 0 3px rgba(27,94,32,.1); }
+input.readonly { background: #f9f9f9; color: #888; cursor: default; border-color: #eee; }
+small { font-size: .75rem; color: #aaa; }
+
+.form-acciones { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #f0f0f0; }
+.btn-cancelar { background: white; color: #555; border: 1.5px solid #e0e0e0; padding: .6rem 1.2rem; border-radius: 10px; font-size: .9rem; font-weight: 600; cursor: pointer; }
+.btn-guardar { background: #1b5e20; color: white; border: none; padding: .6rem 1.5rem; border-radius: 10px; font-size: .9rem; font-weight: 700; cursor: pointer; transition: .2s; }
+.btn-guardar:hover { background: #2e7d32; }
