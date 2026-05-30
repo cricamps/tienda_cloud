@@ -180,19 +180,3 @@ Azure AD B2C (flujo B2C_1_grupo2)      │
 | Build     | Maven                                | 3.8+    |
 | Runtime   | Java                                 | 17      |
 
----
-
-## Guión para grabación en Teams (5–10 min)
-
-| Tiempo | Acción                                                                             |
-|--------|------------------------------------------------------------------------------------|
-| 0:00   | Abrir `localhost:4200` — mostrar la redirección automática a `cloudegrupo2.b2clogin.com` |
-| 1:00   | Iniciar sesión con la cuenta del IDaaS — mostrar nombre del usuario en la navbar   |
-| 2:00   | Navegar por el catálogo, usar filtros por categoría y el buscador                  |
-| 3:00   | Abrir el detalle de un producto y agregarlo al carrito                             |
-| 4:00   | Ir al carrito — modificar cantidades, ver cómo se actualizan los totales           |
-| 5:00   | Generar boleta — mostrar número, detalle de ítems, IVA y total                    |
-| 6:00   | Abrir Postman: `GET /api/productos` sin token → `401 Unauthorized`                |
-| 7:00   | Mismo request con `Authorization: Bearer <token>` → `200 OK` con los productos    |
-| 8:00   | Mostrar `SecurityConfig.java` explicando cómo se valida el JWT con Azure B2C      |
-| 9:00   | Mostrar GitHub con commits de ambos integrantes del grupo                          |
